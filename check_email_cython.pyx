@@ -1,12 +1,19 @@
 # -*- coding: utf-8
+
+cdef int MIN_NAME_LENGTH = 1
+cdef int MAX_NAME_LENGTH = 128
+cdef int MIN_DOMAIN_LENGTH = 3
+cdef int MAX_DOMAIN_LENGTH = 256
+
+
 cdef bint allowed_char(Py_UCS4 ch, bint inside_quotes):
     return u'a' <= ch <= u'z' or u'0'<= ch <= u'9' or ch in u'_-' or (
         inside_quotes and ch in u'!,:')
 
 
 def check_email(basestring input):
-    #if not isinstance(input, basestring):
-    #    raise TypeError('email should be a string')
+    if len(input) > MAX_NAME_LENGTH + MAX_DOMAIN_LENGTH + 1:
+        return False
     cdef bint name_part, open_quote
     cdef int char_counter = 0
     cdef Py_UCS4 prev, ch

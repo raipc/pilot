@@ -5,9 +5,17 @@ VALID_NAME_CHARS = set(string.ascii_lowercase + string.digits + '_-')
 VALID_NAME_CHARS_INSIDE_QUOTES = set('!,:')
 VALID_DOMAIN_CHARS = VALID_NAME_CHARS
 
+MIN_NAME_LENGTH = 1
+MAX_NAME_LENGTH = 128
+MIN_DOMAIN_LENGTH = 3
+MAX_DOMAIN_LENGTH = 256
+
+
 def check_email(email):
     if not isinstance(email, basestring):
         raise TypeError('email should be a string')
+    if len(email) > MAX_NAME_LENGTH + MAX_DOMAIN_LENGTH + 1:
+        return False
     name_part = True
     open_quote = False
     char_counter = 0
@@ -18,14 +26,15 @@ def check_email(email):
 
         if name_part:
             if char in VALID_NAME_CHARS or (open_quote and
-               char in VALID_NAME_CHARS_INSIDE_QUOTES):
+                    char in VALID_NAME_CHARS_INSIDE_QUOTES):
                 prev = char
                 continue
             if char == '.':
                 if prev == '.':
                     return False
             elif char == '@':
-                if char_counter == 1 or char_counter > 129 or open_quote:
+                if char_counter == MIN_NAME_LENGTH or open_quote or (
+                            char_counter > MAX_NAME_LENGTH + 1):
                     return False
                 name_part = False
                 char_counter = 0
@@ -43,16 +52,6 @@ def check_email(email):
             elif char not in VALID_DOMAIN_CHARS:
                 return False
         prev = char
-    return not name_part and 3 <= char_counter <= 256 and char != '.' and char != '-'
-
-#if __name__ == '__main__':
-    #import sys
-
-
-    #def main(inp=sys.stdin, out=sys.stdout):
-    #    for s in inp:
-    #        s = s.strip()
-    #        out.write(u"%s: %s\n" % (s, unicode(check_emails(s))))
-
-
-    #main()
+    return not name_part and (
+        MIN_DOMAIN_LENGTH <= char_counter <= MAX_DOMAIN_LENGTH) and (
+               char != '.' and char != '-')

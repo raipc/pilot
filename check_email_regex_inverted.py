@@ -1,5 +1,9 @@
 import re
 
+MIN_NAME_LENGTH = 1
+MAX_NAME_LENGTH = 128
+MIN_DOMAIN_LENGTH = 3
+MAX_DOMAIN_LENGTH = 256
 
 EVEN_QUOTES_REGEXP = r'%(valid)s(?:"[a-z0-9.!,:_-]*?"%(valid)s)*?' % {
     'valid': '[a-z0-9._-]*?'}
@@ -23,10 +27,11 @@ NOT_DOMAIN_REGEXP = re.compile(r'''^[.-]|
 def check_email(email):
     if not isinstance(email, basestring):
         raise TypeError('email should be a string')
+    if len(email) > MAX_NAME_LENGTH + MAX_DOMAIN_LENGTH + 1:
+        return False
     email_parts = email.split('@')
     if len(email_parts) != 2:
         return False
     good_name = NOT_NAME_REGEXP.match(email_parts[0]) is None
     good_domain = NOT_DOMAIN_REGEXP.match(email_parts[1]) is None
     return good_name and good_domain and email_parts[0].count('"') % 2 == 0
-
