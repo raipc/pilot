@@ -1,0 +1,6 @@
+*.pyc
+*.c
+*.txt
+build
+__pycache__
+
