@@ -3,4 +3,5 @@
 *.txt
 build
 __pycache__
+.cache
 
