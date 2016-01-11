@@ -1,7 +1,9 @@
-*.pyc
-*.c
-*.txt
+.idea
 build
 __pycache__
 .cache
-
+*.pyc
+*.c
+*.html
+*.txt
+!requirements*.txt
