@@ -22,12 +22,12 @@ def process_lines(func, emails, out_info=None, out_stat=sys.stdout):
 
 def main(inp=sys.stdin):
     lines = tuple(line.strip() for line in inp)
-    tested_functions = [check_email_cython_f, 
+    tested_functions = [check_email_cython_f,
                         check_email_regex_f,
-                        check_email_regex_inv_f, 
+                        check_email_regex_inv_f,
                         check_email_traverse_f]
     for i, func in enumerate(tested_functions):
-        process_lines(func, lines, 'result%d.txt' % i)      
+        process_lines(func, lines, 'result%d.txt' % i)
 
 
 if __name__ == '__main__':
