@@ -21,7 +21,7 @@ def check_email(basestring inp):
     cdef bytes encoded_str
     if isinstance(inp, unicode):
         try:
-            encoded_str = inp.encode()
+            encoded_str = inp.encode("UTF-8")
             email = encoded_str
         except UnicodeEncodeError:
             return False
