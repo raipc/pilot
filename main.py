@@ -27,7 +27,7 @@ def main(inp=sys.stdin):
                         check_email_regex_inv_f,
                         check_email_traverse_f]
     for i, func in enumerate(tested_functions):
-        process_lines(func, lines, 'result%d.txt' % i)
+        process_lines(func, lines)
 
 
 if __name__ == '__main__':
