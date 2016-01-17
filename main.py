@@ -1,3 +1,9 @@
+"""
+This module compares performance of different implementations of check_email function.
+You need a prepared text file containing multiple emails, one for each line.
+Usage:
+    python main.py < emails.txt
+"""
 import sys
 from time import time
 
